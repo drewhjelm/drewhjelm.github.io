@@ -5,6 +5,8 @@ title: Parse FortiGate rules into CSV using PowerShell
 
 FortiGate firewalls built by Fortinet provide organizations with a robust next-generation firewall platform to secure networks with Unified Threat Management (UTM) features. I routinely perform audits on FortiGate firewalls. The syntax is not difficult to read, but when a larger device ends up with 100+ rules it can be cumbersome to try and read all of them at once.
 
+tl;dr: the script is on [Github](https://github.com/drewhjelm/firewall-audit).
+
 There are a few things I look for in firewall rules, including:
 
 * Number of rules with ALL allowed in interfaces and/or addresses - Looking through rules with permissive ingress/egress rules helps see where an organization is not properly limiting its traffic. Helping organizations move toward a [zero-trust architecture](https://www.paloaltonetworks.com/cyberpedia/what-is-a-zero-trust-architecture) is an important goal.
