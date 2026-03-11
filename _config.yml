@@ -23,7 +23,7 @@ github_username:  drewhjelm
 
 # Build settings
 markdown: kramdown
-theme: minima
+# theme: minima  # replaced by custom MS-DOS theme layouts
 plugins:
   - jekyll-feed
 

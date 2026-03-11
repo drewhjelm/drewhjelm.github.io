@@ -1,0 +1,28 @@
+<header class="dos-site-header">
+  <div class="dos-window">
+    <div class="dos-titlebar">
+      <div class="dos-titlebar-btns">
+        <span class="dos-btn" aria-hidden="true">■</span>
+      </div>
+      <span class="dos-titlebar-text">{{ site.title | escape }}</span>
+      <div class="dos-titlebar-btns">
+        <span class="dos-btn" aria-hidden="true">▲</span>
+        <span class="dos-btn" aria-hidden="true">▼</span>
+      </div>
+    </div>
+    <nav class="dos-menubar" aria-label="Site navigation" id="main-nav">
+      <a href="{{ '/' | relative_url }}"
+         {% if page.url == '/' %}class="active" aria-current="page"{% endif %}
+         tabindex="0"><span class="hotkey">H</span>ome</a>
+      <a href="{{ '/about/' | relative_url }}"
+         {% if page.url == '/about/' %}class="active" aria-current="page"{% endif %}
+         tabindex="0">A<span class="hotkey">b</span>out</a>
+      {% if site.twitter_username %}
+      <a href="https://twitter.com/{{ site.twitter_username }}" target="_blank" rel="noopener" tabindex="0">T<span class="hotkey">w</span>itter</a>
+      {% endif %}
+      {% if site.github_username %}
+      <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener" tabindex="0"><span class="hotkey">G</span>itHub</a>
+      {% endif %}
+    </nav>
+  </div>
+</header>

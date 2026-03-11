@@ -1,0 +1,575 @@
+---
+---
+
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap');
+
+/* ============================================================
+   MS-DOS / Classic GUI Theme
+   ============================================================ */
+
+:root {
+  --dos-bg:          #000080;   /* classic DOS blue desktop */
+  --dos-win-bg:      #AAAAAA;   /* window background gray */
+  --dos-win-border:  #FFFFFF;   /* bright border */
+  --dos-shadow:      #000000;   /* dark shadow */
+  --dos-title-bg:    #000080;   /* title bar */
+  --dos-title-fg:    #FFFFFF;
+  --dos-text:        #000000;
+  --dos-link:        #000080;
+  --dos-link-hover:  #FFFFFF;
+  --dos-menu-bg:     #AAAAAA;
+  --dos-menu-hover:  #000080;
+  --dos-menu-hfg:    #FFFFFF;
+  --dos-status-bg:   #AAAAAA;
+  --dos-cursor:      #000000;
+  --dos-bright:      #FFFF55;   /* bright yellow accent */
+  --dos-btn-bg:      #AAAAAA;
+  --dos-btn-shadow:  #FFFFFF;
+  --dos-btn-dark:    #555555;
+  --dos-scrollbar:   #AAAAAA;
+  --font-mono:       'VT323', 'Share Tech Mono', 'Courier New', monospace;
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-size: 18px;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--dos-bg);
+  font-family: var(--font-mono);
+  color: var(--dos-text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* subtle scanline effect */
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.08) 2px,
+    rgba(0,0,0,0.08) 4px
+  );
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 16px; }
+::-webkit-scrollbar-track { background: var(--dos-win-bg); }
+::-webkit-scrollbar-thumb {
+  background: var(--dos-win-bg);
+  border-top:    2px solid var(--dos-btn-shadow);
+  border-left:   2px solid var(--dos-btn-shadow);
+  border-bottom: 2px solid var(--dos-btn-dark);
+  border-right:  2px solid var(--dos-btn-dark);
+}
+
+/* ============================================================
+   DESKTOP WRAPPER
+   ============================================================ */
+.dos-desktop {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 12px 8px;
+}
+
+/* ============================================================
+   WINDOW COMPONENT
+   ============================================================ */
+.dos-window {
+  background: var(--dos-win-bg);
+  border-top:    2px solid var(--dos-btn-shadow);
+  border-left:   2px solid var(--dos-btn-shadow);
+  border-bottom: 2px solid var(--dos-btn-dark);
+  border-right:  2px solid var(--dos-btn-dark);
+  width: 100%;
+  max-width: 900px;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+/* inner bevel */
+.dos-window::before {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-top:    1px solid var(--dos-btn-dark);
+  border-left:   1px solid var(--dos-btn-dark);
+  border-bottom: 1px solid var(--dos-btn-shadow);
+  border-right:  1px solid var(--dos-btn-shadow);
+  pointer-events: none;
+}
+
+/* ── Title Bar ── */
+.dos-titlebar {
+  background: var(--dos-title-bg);
+  color: var(--dos-title-fg);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  padding: 3px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  letter-spacing: 0.04em;
+}
+
+.dos-titlebar-text {
+  flex: 1;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.dos-titlebar-btns {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.dos-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 18px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  cursor: default;
+  color: var(--dos-text);
+  background: var(--dos-btn-bg);
+  border-top:    2px solid var(--dos-btn-shadow);
+  border-left:   2px solid var(--dos-btn-shadow);
+  border-bottom: 2px solid var(--dos-btn-dark);
+  border-right:  2px solid var(--dos-btn-dark);
+  line-height: 1;
+  user-select: none;
+}
+
+.dos-btn:active, .dos-btn:focus {
+  border-top:    2px solid var(--dos-btn-dark);
+  border-left:   2px solid var(--dos-btn-dark);
+  border-bottom: 2px solid var(--dos-btn-shadow);
+  border-right:  2px solid var(--dos-btn-shadow);
+  outline: none;
+}
+
+/* ── Menu Bar ── */
+.dos-menubar {
+  background: var(--dos-menu-bg);
+  border-bottom: 1px solid var(--dos-btn-dark);
+  display: flex;
+  flex-wrap: wrap;
+  padding: 2px 4px;
+  gap: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+}
+
+.dos-menubar a,
+.dos-menubar span {
+  display: inline-block;
+  padding: 2px 10px;
+  color: var(--dos-text);
+  text-decoration: none;
+  cursor: default;
+  letter-spacing: 0.02em;
+}
+
+.dos-menubar a:hover,
+.dos-menubar a:focus,
+.dos-menubar a.active {
+  background: var(--dos-menu-hover);
+  color: var(--dos-menu-hfg);
+  outline: none;
+}
+
+.dos-menubar a:focus { outline: 1px dotted var(--dos-text); outline-offset: -1px; }
+
+/* underline hotkey letter */
+.dos-menubar a .hotkey { text-decoration: underline; }
+
+/* ── Window Content ── */
+.dos-window-content {
+  padding: 12px 16px 16px;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--dos-text);
+}
+
+/* ============================================================
+   SITE HEADER (top window)
+   ============================================================ */
+.dos-site-header {
+  width: 100%;
+  max-width: 900px;
+  margin-bottom: 4px;
+}
+
+.dos-site-title {
+  font-size: 1.4rem;
+  font-family: var(--font-mono);
+  color: var(--dos-title-fg);
+  text-decoration: none;
+  letter-spacing: 0.06em;
+}
+
+.dos-site-title:hover { color: var(--dos-bright); }
+
+.dos-site-desc {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.75);
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
+}
+
+/* ============================================================
+   NAVIGATION / MENU
+   ============================================================ */
+.dos-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  align-items: center;
+}
+
+.dos-nav a {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--dos-text);
+  text-decoration: none;
+  padding: 2px 12px;
+  display: inline-block;
+  border-right: 1px solid var(--dos-btn-dark);
+}
+
+.dos-nav a:last-child { border-right: none; }
+
+.dos-nav a:hover,
+.dos-nav a:focus,
+.dos-nav a.current {
+  background: var(--dos-menu-hover);
+  color: var(--dos-menu-hfg);
+  outline: none;
+}
+
+.dos-nav a:focus { outline: 1px dotted var(--dos-btn-dark); outline-offset: -2px; }
+
+/* ============================================================
+   POST LIST (home page)
+   ============================================================ */
+.dos-post-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dos-post-item {
+  margin-bottom: 4px;
+}
+
+.dos-post-item a {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  color: var(--dos-link);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  padding: 3px 6px;
+  border: 1px solid transparent;
+  cursor: default;
+}
+
+.dos-post-item a::before { content: '▶ '; color: var(--dos-btn-dark); }
+
+.dos-post-item a:hover,
+.dos-post-item a:focus {
+  background: var(--dos-menu-hover);
+  color: var(--dos-menu-hfg);
+  border-color: var(--dos-btn-dark);
+  outline: none;
+}
+
+.dos-post-item a:hover::before,
+.dos-post-item a:focus::before { color: var(--dos-menu-hfg); }
+
+.dos-post-date {
+  font-size: 0.85rem;
+  color: #444;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.dos-post-item a:hover .dos-post-date,
+.dos-post-item a:focus .dos-post-date { color: rgba(255,255,255,0.8); }
+
+/* ============================================================
+   POST / PAGE CONTENT
+   ============================================================ */
+.dos-content {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--dos-text);
+}
+
+.dos-post-header {
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--dos-btn-dark);
+}
+
+.dos-post-title {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: normal;
+  color: var(--dos-text);
+  line-height: 1.3;
+}
+
+.dos-post-meta {
+  font-size: 0.85rem;
+  color: #555;
+  margin-top: 4px;
+}
+
+/* headings */
+.dos-content h1,
+.dos-content h2,
+.dos-content h3,
+.dos-content h4 {
+  font-family: var(--font-mono);
+  font-weight: normal;
+  margin-top: 1.4em;
+  margin-bottom: 0.5em;
+}
+
+.dos-content h1 { font-size: 1.4rem; border-bottom: 1px solid var(--dos-btn-dark); padding-bottom: 4px; }
+.dos-content h2 { font-size: 1.2rem; }
+.dos-content h3 { font-size: 1.05rem; }
+
+/* links */
+.dos-content a {
+  color: var(--dos-link);
+  text-decoration: underline;
+}
+
+.dos-content a:hover,
+.dos-content a:focus {
+  background: var(--dos-menu-hover);
+  color: var(--dos-menu-hfg);
+  outline: none;
+}
+
+/* paragraphs */
+.dos-content p { margin-bottom: 0.9em; }
+
+/* lists */
+.dos-content ul,
+.dos-content ol {
+  margin: 0.5em 0 0.9em 1.6em;
+}
+
+.dos-content li { margin-bottom: 0.2em; }
+
+/* code */
+.dos-content code,
+.dos-content kbd {
+  font-family: var(--font-mono);
+  background: #888;
+  color: #fff;
+  padding: 1px 5px;
+  font-size: 0.95em;
+}
+
+.dos-content pre {
+  background: #1A1A1A;
+  color: #CCCCCC;
+  padding: 10px 14px;
+  overflow-x: auto;
+  margin: 0.8em 0 1em;
+  border-left: 3px solid var(--dos-title-bg);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.dos-content pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
+}
+
+/* blockquotes */
+.dos-content blockquote {
+  border-left: 3px solid var(--dos-btn-dark);
+  padding-left: 12px;
+  color: #333;
+  margin: 0.8em 0;
+  font-style: normal;
+}
+
+/* tables */
+.dos-content table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0.8em 0;
+  font-size: 0.95rem;
+}
+
+.dos-content th,
+.dos-content td {
+  border: 1px solid var(--dos-btn-dark);
+  padding: 4px 10px;
+  text-align: left;
+}
+
+.dos-content th {
+  background: var(--dos-title-bg);
+  color: var(--dos-title-fg);
+}
+
+/* images */
+.dos-content img {
+  max-width: 100%;
+  border: 2px solid var(--dos-btn-dark);
+  display: block;
+  margin: 0.8em 0;
+}
+
+/* horizontal rule */
+.dos-content hr {
+  border: none;
+  border-top: 1px solid var(--dos-btn-dark);
+  margin: 1.2em 0;
+}
+
+/* ============================================================
+   STATUS BAR (footer)
+   ============================================================ */
+.dos-statusbar {
+  background: var(--dos-status-bg);
+  border-top:   2px solid var(--dos-btn-shadow);
+  border-left:  2px solid var(--dos-btn-shadow);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--dos-text);
+  padding: 3px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+  max-width: 900px;
+  margin-top: auto;
+  letter-spacing: 0.02em;
+}
+
+.dos-statusbar a {
+  color: var(--dos-link);
+  text-decoration: none;
+}
+
+.dos-statusbar a:hover { text-decoration: underline; }
+
+.dos-status-left,
+.dos-status-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ============================================================
+   KEYBOARD FOCUS INDICATOR
+   ============================================================ */
+body.using-keyboard *:focus {
+  outline: 2px dotted var(--dos-bright) !important;
+  outline-offset: 1px !important;
+}
+
+/* ============================================================
+   SKIP TO CONTENT
+   ============================================================ */
+.skip-link {
+  position: absolute;
+  top: -999px;
+  left: 0;
+  background: var(--dos-bright);
+  color: #000;
+  padding: 4px 10px;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  z-index: 9999;
+}
+
+.skip-link:focus { top: 0; }
+
+/* ============================================================
+   404 / ERROR WINDOW
+   ============================================================ */
+.dos-error-box {
+  text-align: center;
+  padding: 20px;
+  font-family: var(--font-mono);
+}
+
+.dos-error-code {
+  font-size: 4rem;
+  color: var(--dos-title-bg);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.dos-error-msg { font-size: 1.1rem; margin-bottom: 6px; }
+
+/* ============================================================
+   PAGINATION (if ever needed)
+   ============================================================ */
+.dos-pagination {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.dos-pagination a {
+  font-family: var(--font-mono);
+  color: var(--dos-text);
+  text-decoration: none;
+  padding: 2px 10px;
+  background: var(--dos-btn-bg);
+  border-top:    2px solid var(--dos-btn-shadow);
+  border-left:   2px solid var(--dos-btn-shadow);
+  border-bottom: 2px solid var(--dos-btn-dark);
+  border-right:  2px solid var(--dos-btn-dark);
+  font-size: 0.9rem;
+}
+
+.dos-pagination a:hover,
+.dos-pagination a:focus {
+  background: var(--dos-menu-hover);
+  color: var(--dos-menu-hfg);
+  outline: none;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 640px) {
+  html { font-size: 16px; }
+
+  .dos-desktop { padding: 8px 6px 6px; }
+
+  .dos-titlebar-text { font-size: 0.9rem; }
+
+  .dos-window-content { padding: 8px 10px 12px; }
+
+  .dos-post-date { display: none; }
+}
