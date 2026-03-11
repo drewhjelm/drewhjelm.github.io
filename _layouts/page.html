@@ -1,0 +1,19 @@
+---
+layout: default
+---
+
+<div class="dos-titlebar">
+  <div class="dos-titlebar-btns">
+    <button class="dos-btn" aria-label="Menu" tabindex="0">≡</button>
+  </div>
+  <span class="dos-titlebar-text">{{ page.title | upcase | escape }}</span>
+  <div class="dos-titlebar-btns">
+    <button class="dos-btn" tabindex="-1" aria-hidden="true">_</button>
+    <button class="dos-btn" tabindex="-1" aria-hidden="true">□</button>
+  </div>
+</div>
+
+<div class="dos-window-content dos-content">
+  <h1 class="dos-post-title" style="margin-bottom:12px;">{{ page.title | escape }}</h1>
+  {{ content }}
+</div>

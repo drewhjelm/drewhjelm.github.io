@@ -1,0 +1,38 @@
+---
+layout: default
+---
+
+<div class="dos-titlebar">
+  <div class="dos-titlebar-btns">
+    <button class="dos-btn" tabindex="0" onclick="history.back()" title="Back (Alt+←)">◄</button>
+  </div>
+  <span class="dos-titlebar-text">{{ page.title | truncate: 60 | upcase | escape }}</span>
+  <div class="dos-titlebar-btns">
+    <button class="dos-btn" tabindex="-1" aria-hidden="true">_</button>
+    <button class="dos-btn" tabindex="-1" aria-hidden="true">□</button>
+  </div>
+</div>
+
+<div class="dos-window-content">
+  <header class="dos-post-header">
+    <h1 class="dos-post-title">{{ page.title | escape }}</h1>
+    <p class="dos-post-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
+      {% if page.author %} &nbsp;│&nbsp; {{ page.author | escape }}{% endif %}
+    </p>
+  </header>
+
+  <article class="dos-content" aria-label="{{ page.title | escape }}">
+    {{ content }}
+  </article>
+
+  <nav class="dos-pagination" aria-label="Post navigation">
+    {% if page.previous.url %}
+    <a href="{{ page.previous.url | relative_url }}" tabindex="0">◄ {{ page.previous.title | truncate: 30 | escape }}</a>
+    {% endif %}
+    <a href="{{ '/' | relative_url }}" tabindex="0">[HOME]</a>
+    {% if page.next.url %}
+    <a href="{{ page.next.url | relative_url }}" tabindex="0">{{ page.next.title | truncate: 30 | escape }} ►</a>
+    {% endif %}
+  </nav>
+</div>

@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+jobs:
+  build-and-check:
+    name: Build, HTML-Proofer & bundler-audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+
+      - name: Build Jekyll site
+        run: bundle exec jekyll build --destination _site
+        env:
+          JEKYLL_ENV: production
+
+      - name: Run html-proofer
+        run: |
+          bundle exec htmlproofer _site \
+            --disable-external \
+            --ignore-urls "/^#/,/^\/feed\.xml/" \
+            --ignore-status-codes "999" \
+            --no-enforce-https
+        # --disable-external: skips slow/flaky external URL checks on every push
+        # --ignore-urls: skips anchor-only links and the Atom feed path
+        # --no-enforce-https: GitHub Pages generates http hrefs in some edge cases
+
+      - name: Run bundler-audit
+        run: |
+          bundle exec bundler-audit update
+          bundle exec bundler-audit check
+
+  lint:
+    name: Markdown & CSS Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install linting tools
+        run: npm install -g markdownlint-cli stylelint stylelint-config-standard postcss-scss
+
+      - name: Lint Markdown posts
+        run: |
+          markdownlint '_posts/**/*.md' 'about.md' 'index.md' \
+            --config .markdownlint.json \
+            || true
+        # '|| true' reports issues as warnings without failing the workflow.
+        # Remove it once you've fixed existing lint violations.
+
+      - name: Lint SCSS/CSS
+        run: |
+          stylelint 'assets/css/**/*.{css,scss}' \
+            --config .stylelintrc.json \
+            || true
+        # Same as above — initially advisory, promote to hard failure after cleanup.

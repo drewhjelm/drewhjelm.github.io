@@ -1,0 +1,37 @@
+---
+layout: default
+---
+
+<div class="dos-titlebar">
+  <div class="dos-titlebar-btns">
+    <button class="dos-btn" aria-label="Menu" tabindex="0">≡</button>
+  </div>
+  <span class="dos-titlebar-text">POSTS.DIR</span>
+  <div class="dos-titlebar-btns">
+    <button class="dos-btn" tabindex="-1" aria-hidden="true">_</button>
+    <button class="dos-btn" tabindex="-1" aria-hidden="true">□</button>
+  </div>
+</div>
+
+<div class="dos-window-content">
+  {% if page.content and page.content != '' %}
+  <div class="dos-content" style="margin-bottom:12px;">
+    {{ page.content }}
+  </div>
+  {% endif %}
+
+  {% if site.posts.size > 0 %}
+  <ul class="dos-post-list" role="list" aria-label="Blog posts">
+    {%- for post in site.posts -%}
+    <li class="dos-post-item" role="listitem">
+      <a href="{{ post.url | relative_url }}" tabindex="0">
+        <span class="dos-post-date">{{ post.date | date: "%Y-%m-%d" }}</span>
+        <span class="dos-post-title-text">{{ post.title | escape }}</span>
+      </a>
+    </li>
+    {%- endfor -%}
+  </ul>
+  {% else %}
+  <p>No posts yet.</p>
+  {% endif %}
+</div>
