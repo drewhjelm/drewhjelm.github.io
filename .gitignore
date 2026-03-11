@@ -1,5 +1,13 @@
 _site
 .sass-cache
 .jekyll-metadata
+.jekyll-cache/
 
-\.vscode/
+vendor/
+.bundle/
+
+node_modules/
+
+.DS_Store
+
+.vscode/

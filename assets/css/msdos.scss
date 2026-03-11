@@ -176,21 +176,39 @@ body {
   color: var(--dos-text);
   text-decoration: none;
   cursor: default;
-  letter-spacing: 0.02em;
+  letter-spacing: 0;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: 1ch 1px;
+  background-position-y: calc(100% - 2px);
+}
+
+/* hotkey underline: 1ch-wide yellow line at the character's position (padding-left = 10px) */
+.dos-menubar a[data-hotkey-pos="0"] {
+  background-image: linear-gradient(var(--dos-bright), var(--dos-bright));
+  background-position-x: 10px;
+}
+.dos-menubar a[data-hotkey-pos="1"] {
+  background-image: linear-gradient(var(--dos-bright), var(--dos-bright));
+  background-position-x: calc(10px + 1ch);
 }
 
 .dos-menubar a:hover,
 .dos-menubar a:focus,
 .dos-menubar a.active {
-  background: var(--dos-menu-hover);
+  background-color: var(--dos-menu-hover);
   color: var(--dos-menu-hfg);
   outline: none;
 }
 
-.dos-menubar a:focus { outline: 1px dotted var(--dos-text); outline-offset: -1px; }
+/* keep hotkey underline visible (white) when the item is highlighted */
+.dos-menubar a:hover[data-hotkey-pos],
+.dos-menubar a:focus[data-hotkey-pos],
+.dos-menubar a.active[data-hotkey-pos] {
+  background-image: linear-gradient(var(--dos-menu-hfg), var(--dos-menu-hfg));
+}
 
-/* underline hotkey letter */
-.dos-menubar a .hotkey { text-decoration: underline; }
+.dos-menubar a:focus { outline: 1px dotted var(--dos-text); outline-offset: -1px; }
 
 /* ── Window Content ── */
 .dos-window-content {
